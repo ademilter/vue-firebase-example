@@ -1,17 +1,21 @@
 <template lang="pug">
   .Popup.Auth
-    .Popup-overlay(@click="")
+    .Popup-overlay(@click="close")
     .Popup-container
+      .Popup-loading(v-show="loginLoading") Yükleniyor...
       button(
       type="button",
+      :disabled="loginLoading",
       @click="login('github')") login github
       br
       button(
       type="button",
+      :disabled="loginLoading",
       @click="login('google')") login google
       br
       button(
       type="button",
+      :disabled="loginLoading",
       @click="login('twitter')") login twitter
       p.alert(v-show="isAlert") {{ alert }}
 </template>
@@ -35,10 +39,14 @@
       ]),
       isAlert () {
         return this.alert !== ''
+      },
+      loginLoading () {
+        return this.$loading.isLoading('user login')
       }
     },
     methods: {
       login (provider) {
+        this.$loading.startLoading('user login')
         AUTH.signInWithPopup(this.newProvider(provider)).then(result => {
           // giriş yaptı
           this.$store.commit('Auth/saveRawData', result.user)
@@ -53,7 +61,7 @@
               refUSERS
               .doc(result.user.uid)
               .set({
-                rawData: this.User.raw,
+                rawData: this.User.rawData,
                 hasCard: false
               })
             }
@@ -70,6 +78,8 @@
               this.alert = 'daha önce ' + providers + ' hesabı ile giriş yapılmış.'
             })
           }
+        }).then(() => {
+          this.$loading.endLoading('user login')
         })
       },
       newProvider (provider) {
@@ -85,6 +95,9 @@
             newProvider = new firebase.auth.GoogleAuthProvider()
         }
         return newProvider
+      },
+      close () {
+        this.$router.push({ name: 'Home' })
       }
     }
   }

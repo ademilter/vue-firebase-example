@@ -1,15 +1,20 @@
 <template lang="pug">
   header.Header
-    template(v-if="isLogin")
-      button(
-      type="button",
-      @click="logout") logout
-    template(v-else)
-      router-link(
-      tag="button",
-      type="button",
-      :to="{ name: 'Auth' }"
-      ) kartını bırak
+    .container
+      template(v-if="isLogin")
+        router-link(
+        tag="button",
+        type="button",
+        :to="{ name: 'Profile' }") Profil
+        button(
+        type="button",
+        @click="logout") Çıkış
+      template(v-else)
+        router-link(
+        tag="button",
+        type="button",
+        :to="{ name: 'Auth' }"
+        ) Kartını Bırak
 
 </template>
 

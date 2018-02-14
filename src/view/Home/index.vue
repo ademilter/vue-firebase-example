@@ -1,11 +1,19 @@
 <template lang="pug">
   .Home
-    button(@click="next", v-show="!isEndCard") next
-    .List(v-if="hasCards")
-      Card(
-      v-for="Card in Cards",
-      :key="Card.rawData.uid",
-      :data="Card.cardData")
+    .container
+      .List(v-if="hasCards")
+        Card(
+        v-for="Card in Cards",
+        :key="Card.rawData.uid",
+        :data="Card.cardData")
+
+      button(
+      @click="next",
+      :disabled="cardLoading",
+      v-show="!isEndCard")
+        span(v-show="cardLoading") Yükleniyor...
+        span(v-show="!cardLoading") Sonraki sayfa
+
     router-view
 </template>
 
@@ -23,8 +31,16 @@
         'isEndCard',
         'hasCards',
         'Cards'
-      ])
+      ]),
+      cardLoading () {
+        return this.$loading.isLoading('loading cards')
+      }
     },
+    // beforeRouteEnter (to, from, next) {
+    //   next(vm => {
+    //     vm.$store.dispatch('Home/getCards')
+    //   })
+    // },
     mounted () {
       this.$store.dispatch('Home/getCards')
     },

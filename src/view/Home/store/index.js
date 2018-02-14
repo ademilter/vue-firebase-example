@@ -1,10 +1,10 @@
 import { FIRESTORE } from '@/firebase'
 import _ from 'lodash'
+import { startLoading, endLoading } from '@/utils/loader'
 
 export default {
   namespaced: true,
   state: {
-    init: false,
     isFirstPage: true,
     perPage: 30,
     isEnd: false,
@@ -17,7 +17,9 @@ export default {
     Cards: state => state.Cards
   },
   actions: {
-    getCards ({ state, commit }) {
+    getCards ({ state, commit, dispatch }) {
+      startLoading(dispatch, 'loading cards')
+      //
       let refUsers =
         FIRESTORE
         .collection('Users')
@@ -38,10 +40,18 @@ export default {
         commit('addCards', documentSnapshots)
       }).catch(error => {
         console.log(error)
+      }).then(() => {
+        endLoading(dispatch, 'loading cards')
       })
     }
   },
   mutations: {
+    resetCards (state) {
+      state.isFirstPage = true
+      state.isEnd = false
+      state.lastVisible = null
+      state.Cards = []
+    },
     endCard (state) {
       state.isEnd = true
     },

@@ -16,48 +16,27 @@
       :class="{ 'active' : data.status }"
       ) {{ statusText }}
       .Card-foot-social
-        a.Card-foot-social-link.gitub(
-        v-for="(value, key) in data.social"
-        v-if="value !== ''",
-        :href="'dasdas' + value",
-        target="_blank")
-          svg(class="icon")
-            use(:xlink:href="'#icon-' + key")
+        CardSocialLink(
+        v-for="(value, keyName) in data.social",
+        :userName="value",
+        :key="keyName",
+        :siteName="keyName")
 
 </template>
 
 <script>
+  import CardSocialLink from './link'
+
   export default {
     name: 'Card',
+    components: {
+      CardSocialLink
+    },
     props: {
       data: {
         type: Object,
         default: {}
       }
-      // photo: {
-      //   type: String,
-      //   default: 'https://pbs.twimg.com/profile_images/959150465845022721/Y3crTOFR_400x400.jpg'
-      // },
-      // fullname: {
-      //   type: String,
-      //   default: 'Adem ilter'
-      // },
-      // title: {
-      //   type: String,
-      //   default: 'Frontend Developer'
-      // },
-      // location: {
-      //   type: String,
-      //   default: 'İstanbul'
-      // },
-      // status: {
-      //   type: Boolean,
-      //   default: false
-      // },
-      // social: {
-      //   type: Array,
-      //   default: Array
-      // }
     },
     computed: {
       statusText () {

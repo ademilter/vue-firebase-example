@@ -2,26 +2,26 @@ export default {
   namespaced: true,
   state: {
     User: {
-      raw: null,
-      card: null
+      rawData: null,
+      cardData: null
     }
   },
   getters: {
-    isLogin: state => state.User.raw !== null,
-    hasCard: state => state.User.card !== null,
+    isLogin: state => state.User.rawData !== null,
+    hasCard: state => state.User.cardData !== null,
     User: state => state.User
   },
   actions: {},
   mutations: {
     saveRawData (state, payload) {
-      state.User.raw = JSON.parse(JSON.stringify(payload))
+      state.User.rawData = JSON.parse(JSON.stringify(payload))
     },
     saveCardData (state, payload) {
-      state.User.card = JSON.parse(JSON.stringify(payload))
+      state.User.cardData = JSON.parse(JSON.stringify(payload))
     },
     logout (state) {
-      state.User.raw = null
-      state.User.card = null
+      state.User.rawData = null
+      state.User.cardData = null
     }
   }
 }

@@ -1,7 +1,8 @@
 <template lang="pug">
   .Popup.Profile
-    .Popup-overlay(@click="")
+    .Popup-overlay(@click="close")
     .Popup-container
+      .Popup-loading(v-show="profileLoading") Yükleniyor...
       .left
         Card(:data="form")
       .right
@@ -10,18 +11,22 @@
           .Form-item
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             v-model="form.fullname")
           .Form-item
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             v-model="form.title")
 
           .Form-item.space
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             v-model="form.location")
           .Form-item
-            label.label
+            label.label(
+            :class="{ 'disabled' : profileLoading }")
               input(type="checkbox", v-model="form.status")
               span İş için uygunum
 
@@ -30,6 +35,7 @@
               use(xlink:href="#icon-twitter")
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             placeholder="Kullanıcı adı",
             v-model="form.social.twitter")
           .Form-item.social-item.social-item
@@ -37,6 +43,7 @@
               use(xlink:href="#icon-github")
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             placeholder="Kullanıcı adı",
             v-model="form.social.github")
           .Form-item.social-item.social-item
@@ -44,17 +51,21 @@
               use(xlink:href="#icon-dribbble")
             input(type="text",
             class="text",
+            :disabled="profileLoading",
             placeholder="Kullanıcı adı",
             v-model="form.social.dribbble")
 
           .Form-item.social-item.space
-            button.button(type="submit") Kartımı Ekle
+            button.button(
+            type="submit",
+            :disabled="profileLoading") Kartımı Ekle
 
 
 </template>
 
 <script>
   import Card from '@/view/card'
+  import _ from 'lodash'
   import { mapGetters } from 'vuex'
   import { FIRESTORE } from '@/firebase'
 
@@ -83,16 +94,34 @@
       ...mapGetters('Auth', [
         'User',
         'hasCard'
-      ])
+      ]),
+      profileLoading () {
+        return this.$loading.isLoading('profile loading')
+      }
     },
     mounted () {
-      if (this.hasCard) {
-        this.form.photo = this.User.card.photo
-        this.form.fullname = this.User.card.fullname
-      } else {
-        this.form.photo = this.User.raw.photoURL
-        this.form.fullname = this.User.raw.displayName
-      }
+      this.$loading.startLoading('profile loading')
+      FIRESTORE
+      .collection('Users')
+      .doc(this.User.rawData.uid)
+      .get()
+      .then(doc => {
+        if (_.has(doc.data(), 'cardData')) {
+          this.$store.commit('Auth/saveCardData', doc.data().cardData)
+          this.form.photo = this.User.cardData.photo
+          this.form.fullname = this.User.cardData.fullname
+          this.form.title = this.User.cardData.title
+          this.form.location = this.User.cardData.location
+          this.form.status = this.User.cardData.status
+          this.form.social.twitter = this.User.cardData.social.twitter
+          this.form.social.github = this.User.cardData.social.github
+          this.form.social.dribbble = this.User.cardData.social.dribbble
+        } else {
+          this.form.photo = this.User.rawData.photoURL
+          this.form.fullname = this.User.rawData.displayName
+        }
+        this.$loading.endLoading('profile loading')
+      })
     },
     methods: {
       save (e) {
@@ -105,7 +134,7 @@
           // firestore
           FIRESTORE
           .collection('Users')
-          .doc(this.User.raw.uid)
+          .doc(this.User.rawData.uid)
           .update({
             cardData: this.form,
             hasCard: true
@@ -113,6 +142,9 @@
             this.$router.push({ name: 'Home' })
           })
         })
+      },
+      close () {
+        this.$router.push({ name: 'Home' })
       }
     }
   }
