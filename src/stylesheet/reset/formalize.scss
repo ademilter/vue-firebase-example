@@ -1,11 +1,16 @@
 /*! formalize.css | MIT License | github.com/interacthings/formalize */
 
 * {
+  outline: 0;
   &,
   &:before,
   &:after {
     box-sizing: inherit;
   }
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 html {
@@ -14,7 +19,6 @@ html {
 }
 
 body {
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,7 +28,13 @@ a {
   text-decoration: none;
 }
 
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
 img {
+  max-width: 100%;
   vertical-align: middle;
 }
 
@@ -32,7 +42,9 @@ blockquote, dl, dd, h1, h2, h3, h4, h5, h6, figure, p, pre, fieldset, ul, ol, me
   margin: 0;
 }
 
-button, fieldset, iframe {
+button,
+fieldset,
+iframe {
   border: 0;
 }
 
@@ -54,6 +66,6 @@ table {
   border-spacing: 0;
 }
 
-td {
+th, td {
   padding: 0;
 }

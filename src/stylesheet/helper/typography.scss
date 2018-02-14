@@ -1,14 +1,46 @@
 body {
-  font-family: $font-family;
-  font-weight: $font-weight-normal;
+  font-family: $font-family-body;
   font-size: $font-size-normal;
   line-height: $font-line-height;
 }
 
 h1, h2, h3, h4, h5, h6, b, strong, label {
-  font-weight: $font-weight-bold;
+
 }
 
-small {
-  font-size: $font-size-small;
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-title;
+}
+
+h6 {
+  font-size: .9em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  line-height: normal;
+  font-size: inherit;
+  font-weight: inherit;
 }

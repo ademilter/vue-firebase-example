@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // Pages
 import Home from '@/view/Home'
-import Login from '@/view/Auth'
+import Auth from '@/view/Auth'
 import Profile from '@/view/Profile'
 
 Vue.use(Router)
@@ -16,9 +16,9 @@ const router = new Router({
       component: Home,
       children: [
         {
-          path: 'login',
-          name: 'Login',
-          component: Login
+          path: 'auth',
+          name: 'Auth',
+          component: Auth
         },
         {
           path: 'profile',
