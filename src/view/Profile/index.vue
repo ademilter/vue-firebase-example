@@ -1,14 +1,14 @@
 <template lang="pug">
-  .AppFooter
+  .Profile
 </template>
 
 <script>
   export default {
-    name: 'AppFooter'
+    name: 'Profile'
   }
 </script>
 
 <style lang="scss" scoped>
-  .AppFooter {
+  .Profile {
   }
 </style>

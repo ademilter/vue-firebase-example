@@ -9,3 +9,31 @@
 @import "helper/global";
 @import "helper/utility";
 @import "helper/form";
+
+.alert {
+  padding: 10px;
+  color: red;
+  background-color: rgba(red, .1);
+}
+
+.Popup {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(black, .4);
+
+  &-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 20px 30px rgba(black, .2);
+  }
+}

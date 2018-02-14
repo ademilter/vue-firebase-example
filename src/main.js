@@ -5,6 +5,7 @@ import store from '@/store'
 import VeeValidate, { Validator } from 'vee-validate'
 import tr from 'vee-validate/dist/locale/tr'
 import VueLoading from 'vuex-loading'
+// import '@/firebase'
 import { AUTH } from '@/firebase'
 
 Vue.config.productionTip = false
