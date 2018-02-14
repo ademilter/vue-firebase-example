@@ -1,5 +1,6 @@
 <template lang="pug">
-  .Login.Popup
+  .Popup.Auth
+    .Popup-overlay(@click="")
     .Popup-container
       button(
       type="button",
@@ -17,22 +18,61 @@
 
 <script>
   import firebase from 'firebase'
+  import { mapGetters } from 'vuex'
   import { AUTH, FIRESTORE } from '@/firebase'
+  import _ from 'lodash'
 
   export default {
-    name: 'Login',
+    name: 'Auth',
     data () {
       return {
         alert: ''
       }
     },
     computed: {
+      ...mapGetters('Auth', [
+        'User'
+      ]),
       isAlert () {
         return this.alert !== ''
       }
     },
     methods: {
       login (provider) {
+        AUTH.signInWithPopup(this.newProvider(provider)).then(result => {
+          // giriş yaptı
+          this.$store.commit('Auth/saveRawData', result.user)
+          //
+          const refUSERS = FIRESTORE.collection('Users')
+          //
+          refUSERS
+          .doc(result.user.uid)
+          .get().then(doc => {
+            //
+            if (!doc.exists) {
+              refUSERS
+              .doc(result.user.uid)
+              .set({
+                rawData: this.User.raw,
+                hasCard: false
+              })
+            }
+            if (_.has(doc.data(), 'cardData')) {
+              this.$router.push({ name: 'Home' })
+            } else {
+              this.$router.push({ name: 'Profile' })
+            }
+          })
+        }).catch(error => {
+          if (error.code === 'auth/account-exists-with-different-credential') {
+            // daha önce başka bir hesapla giriş yapmış
+            AUTH.fetchProvidersForEmail(error.email).then(providers => {
+              this.alert = 'daha önce ' + providers + ' hesabı ile giriş yapılmış.'
+            })
+          }
+        })
+      },
+      newProvider (provider) {
         let newProvider
         switch (provider) {
           case 'github':
@@ -44,49 +84,13 @@
           default:
             newProvider = new firebase.auth.GoogleAuthProvider()
         }
-        AUTH.signInWithPopup(newProvider).then(result => {
-          // giriş yaptı
-          this.$store.commit('Auth/login', result.user, { root: true })
-          //
-          //
-          const refUSERS = FIRESTORE.collection('Users')
-          console.log(result.user.uid)
-
-          refUSERS.doc(result.user.uid).get().then(doc => {
-            console.log(doc)
-            // if (!doc.exists) {
-            console.log(result)
-            //
-            //
-            // refUSERS.doc(result.user.uid).add({
-            refUSERS.add({
-              providerData: {
-                ...result.user.providerData[0]
-              }
-            }).then(() => {
-              this.$router.push({ name: 'Home' })
-            }).catch(error => {
-              console.error('Error writing document: ', error)
-            })
-            // }
-          }).catch(error => {
-            console.log('Error getting document:', error)
-          })
-        }).catch(error => {
-          if (error.code === 'auth/account-exists-with-different-credential') {
-            // daha önce başka bir hesapla giriş yapmış
-            AUTH.fetchProvidersForEmail(error.email)
-                .then(providers => {
-                  this.alert = 'daha önce ' + providers + ' hesabı ile giriş yapılmış.'
-                })
-          }
-        })
+        return newProvider
       }
     }
   }
 </script>
 
 <style lang="scss">
-  .Login {
+  .Auth {
   }
 </style>

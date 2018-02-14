@@ -19,7 +19,7 @@
     },
     created () {
       const user = AUTH.currentUser
-      if (user) this.$store.commit('Auth/login', user, { root: true })
+      if (user) this.$store.commit('Auth/saveRawData', user, { root: true })
     }
   }
 </script>

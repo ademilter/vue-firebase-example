@@ -1,22 +1,27 @@
 export default {
   namespaced: true,
   state: {
-    User: null
+    User: {
+      raw: null,
+      card: null
+    }
   },
   getters: {
-    isLogin: state => state.User !== null,
-    User: state => {
-      if (state.User !== null) return state.User.providerData[0]
-      else return null
-    }
+    isLogin: state => state.User.raw !== null,
+    hasCard: state => state.User.card !== null,
+    User: state => state.User
   },
   actions: {},
   mutations: {
-    login (state, payload) {
-      state.User = JSON.parse(JSON.stringify(payload))
+    saveRawData (state, payload) {
+      state.User.raw = JSON.parse(JSON.stringify(payload))
+    },
+    saveCardData (state, payload) {
+      state.User.card = JSON.parse(JSON.stringify(payload))
     },
     logout (state) {
-      state.User = null
+      state.User.raw = null
+      state.User.card = null
     }
   }
 }

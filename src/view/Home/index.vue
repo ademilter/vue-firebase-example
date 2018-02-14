@@ -1,59 +1,36 @@
 <template lang="pug">
   .Home
-    button(@click="next", v-show="!isEnd") next
-    .List
-      Card
+    button(@click="next", v-show="!isEndCard") next
+    .List(v-if="hasCards")
+      Card(
+      v-for="Card in Cards",
+      :key="Card.rawData.uid",
+      :data="Card.cardData")
     router-view
 </template>
 
 <script>
   import Card from '@/view/card'
   import { mapGetters } from 'vuex'
-  import { FIRESTORE } from '@/firebase'
 
   export default {
     name: 'Home',
-    data () {
-      return {
-        init: false,
-        perPage: 1,
-        isEnd: false
-      }
-    },
     components: {
       Card
     },
     computed: {
-      ...mapGetters('Auth', [
-        'isLogin'
+      ...mapGetters('Home', [
+        'isEndCard',
+        'hasCards',
+        'Cards'
       ])
     },
     mounted () {
-      this.next()
+      this.$store.dispatch('Home/getCards')
     },
     methods: {
       next () {
-        let first = FIRESTORE.collection('Users').limit(this.perPage)
-
-        if (this.init) {
-          first = first.startAfter(this._lastVisible)
-        }
-        this.init = true
-
-        first.get().then(documentSnapshots => {
-          console.log(documentSnapshots)
-          if (documentSnapshots.empty) {
-            this.isEnd = true
-            return
-          }
-          this._lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1]
-          documentSnapshots.forEach(doc => {
-            let user = doc.data()
-            console.log(user)
-          })
-        }).catch(error => {
-          console.log(error)
-        })
+        this.$store.dispatch('Home/getCards')
       }
     }
   }

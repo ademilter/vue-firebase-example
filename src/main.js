@@ -19,7 +19,6 @@ Vue.use(VeeValidate, {
 let app
 AUTH.onAuthStateChanged(() => {
   if (!app) {
-    console.log('app init')
     app = new Vue({
       el: '#app',
       router,

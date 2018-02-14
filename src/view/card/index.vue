@@ -4,37 +4,66 @@
     .Card-head
       .Card-head-photo
         img.Card-head-photo-img(
-        src="https://pbs.twimg.com/profile_images/959150465845022721/Y3crTOFR_400x400.jpg",
-        alt="username")
+        :src="data.photo",
+        :alt="data.fullname")
       .Card-head-user
-        h4.Card-head-user-name Adem ilter
-        p.Card-head-user-title Frontend Developer
+        h4.Card-head-user-name {{ data.fullname }}
+        p.Card-head-user-title {{ data.title }}
 
     .Card-foot
-      p.Card-foot-location İstanbul
-      p.Card-foot-status.active İş için uygun
+      p.Card-foot-location {{ data.location }}
+      p.Card-foot-status(
+      :class="{ 'active' : data.status }"
+      ) {{ statusText }}
       .Card-foot-social
         a.Card-foot-social-link.gitub(
-        href="/",
+        v-for="(value, key) in data.social"
+        v-if="value !== ''",
+        :href="'dasdas' + value",
         target="_blank")
           svg(class="icon")
-            use(xlink:href="#icon-twitter")
-        a.Card-foot-social-link.dribble(
-        href="/",
-        target="_blank")
-          svg(class="icon")
-            use(xlink:href="#icon-medium")
-        a.Card-foot-social-link.twitter(
-        href="/",
-        target="_blank")
-          svg(class="icon")
-            use(xlink:href="#icon-github")
+            use(:xlink:href="'#icon-' + key")
 
 </template>
 
 <script>
   export default {
     name: 'Card',
+    props: {
+      data: {
+        type: Object,
+        default: {}
+      }
+      // photo: {
+      //   type: String,
+      //   default: 'https://pbs.twimg.com/profile_images/959150465845022721/Y3crTOFR_400x400.jpg'
+      // },
+      // fullname: {
+      //   type: String,
+      //   default: 'Adem ilter'
+      // },
+      // title: {
+      //   type: String,
+      //   default: 'Frontend Developer'
+      // },
+      // location: {
+      //   type: String,
+      //   default: 'İstanbul'
+      // },
+      // status: {
+      //   type: Boolean,
+      //   default: false
+      // },
+      // social: {
+      //   type: Array,
+      //   default: Array
+      // }
+    },
+    computed: {
+      statusText () {
+        return this.data.status ? 'İş için uygun' : 'İş için uygun değil'
+      }
+    },
     methods: {}
   }
 </script>
@@ -58,6 +87,7 @@
       &-photo {
         overflow: hidden;
         width: 80px;
+        height: 80px;
         margin-left: auto;
         margin-right: auto;
         border-radius: 42%;
@@ -94,12 +124,12 @@
           margin-left: -7px;
           width: 1em;
           height: 1em;
-          background-color: red;
+          background-color: $color-warning;
           border-radius: 50%;
         }
 
         &.active:before {
-          background-color: limegreen;
+          background-color: $color-success;
         }
       }
 

@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // Pages
 import Auth from '@/view/Auth/store'
 import Profile from '@/view/Profile/store'
+import Home from '@/view/Home/store'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   modules: {
     Auth,
-    Profile
+    Profile,
+    Home
   },
   strict: debug
 })
