@@ -34,6 +34,8 @@
           case 'dribbble':
             domain = 'https://dribbble.com/'
             break
+          default:
+            domain = ''
         }
         return domain + this.userName
       }

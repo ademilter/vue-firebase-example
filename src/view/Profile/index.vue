@@ -32,6 +32,14 @@
 
           .Form-item.social-item.social-item.space
             svg(class="icon")
+              use(xlink:href="#icon-rss")
+            input(type="text",
+            class="text",
+            :disabled="profileLoading",
+            placeholder="Blog / Web Sitesi",
+            v-model="form.social.rss")
+          .Form-item.social-item.social-item
+            svg(class="icon")
               use(xlink:href="#icon-twitter")
             input(type="text",
             class="text",
@@ -83,6 +91,7 @@
           location: 'İstanbul',
           status: false,
           social: {
+            rss: '',
             twitter: '',
             github: '',
             dribbble: ''
