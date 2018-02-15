@@ -18,8 +18,7 @@ export default {
     saveRawData(state, payload) {
       console.log(payload)
       payload = JSON.parse(JSON.stringify(payload))
-      const validKeys = ['createdAt', 'displayName', 'email', 'emailVerified', 'isAnonymous', 'metadata', 'photoURL']
-      payload = _.pick(payload, validKeys)
+      payload = _.omit(payload, 'stsTokenManager')
       state.User.rawData = payload
     },
     saveCardData(state, payload) {
