@@ -51,14 +51,14 @@
 </script>
 
 <style lang="scss">
-  @import "../../stylesheet/config/variables";
+  @import '../../stylesheet/config/variables';
 
   .Card {
     width: 250px;
     height: 320px;
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: 0 1px 2px rgba(black, .1);
+    box-shadow: 0 1px 2px rgba(black, 0.1);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@
         margin-left: auto;
         margin-right: auto;
         border-radius: 42%;
-        box-shadow: 0 2px 4px -1px rgba(black, .2);
+        box-shadow: 0 2px 4px -1px rgba(black, 0.2);
       }
 
       &-user {
@@ -86,8 +86,8 @@
       display: flex;
       flex-direction: column;
       padding: 20px 15px;
-      background-color: rgba(black, .04);
-      color: rgba(black, .6);
+      background-color: rgba(black, 0.04);
+      color: rgba(black, 0.6);
 
       &-location {
       }
@@ -98,7 +98,7 @@
         display: inline-block;
 
         &:before {
-          content: "";
+          content: '';
           position: absolute;
           top: 50%;
           transform: translate(-100%, -50%);
@@ -133,6 +133,5 @@
         }
       }
     }
-
   }
 </style>

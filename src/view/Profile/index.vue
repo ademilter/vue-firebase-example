@@ -100,37 +100,33 @@
       }
     },
     computed: {
-      ...mapGetters('Auth', [
-        'User',
-        'hasCard'
-      ]),
+      ...mapGetters('Auth', ['User', 'hasCard']),
       profileLoading() {
         return this.$loading.isLoading('profile loading')
       }
     },
     mounted() {
       this.$loading.startLoading('profile loading')
-      FIRESTORE
-      .collection('Users')
-      .doc(this.User.rawData.uid)
-      .get()
-      .then(doc => {
-        if (_.has(doc.data(), 'cardData')) {
-          this.$store.commit('Auth/saveCardData', doc.data().cardData)
-          this.form.photo = this.User.cardData.photo
-          this.form.fullname = this.User.cardData.fullname
-          this.form.title = this.User.cardData.title
-          this.form.location = this.User.cardData.location
-          this.form.status = this.User.cardData.status
-          this.form.social.twitter = this.User.cardData.social.twitter
-          this.form.social.github = this.User.cardData.social.github
-          this.form.social.dribbble = this.User.cardData.social.dribbble
-        } else {
-          this.form.photo = this.User.rawData.photoURL
-          this.form.fullname = this.User.rawData.displayName
-        }
-        this.$loading.endLoading('profile loading')
-      })
+      FIRESTORE.collection('Users')
+        .doc(this.User.rawData.uid)
+        .get()
+        .then(doc => {
+          if (_.has(doc.data(), 'cardData')) {
+            this.$store.commit('Auth/saveCardData', doc.data().cardData)
+            this.form.photo = this.User.cardData.photo
+            this.form.fullname = this.User.cardData.fullname
+            this.form.title = this.User.cardData.title
+            this.form.location = this.User.cardData.location
+            this.form.status = this.User.cardData.status
+            this.form.social.twitter = this.User.cardData.social.twitter
+            this.form.social.github = this.User.cardData.social.github
+            this.form.social.dribbble = this.User.cardData.social.dribbble
+          } else {
+            this.form.photo = this.User.rawData.photoURL
+            this.form.fullname = this.User.rawData.displayName
+          }
+          this.$loading.endLoading('profile loading')
+        })
     },
     methods: {
       save(e) {
@@ -141,17 +137,17 @@
           // store
           this.$store.commit('Auth/saveCardData', this.form, { root: true })
           // firestore
-          FIRESTORE
-          .collection('Users')
-          .doc(this.User.rawData.uid)
-          .update({
-            cardData: this.form,
-            hasCard: true
-          }).then(() => {
-            this.$store.commit('Home/resetCards', null, { root: true })
-            this.$store.dispatch('Home/getCards', null, { root: true })
-            this.$router.push({ name: 'Home' })
-          })
+          FIRESTORE.collection('Users')
+            .doc(this.User.rawData.uid)
+            .update({
+              cardData: this.form,
+              hasCard: true
+            })
+            .then(() => {
+              this.$store.commit('Home/resetCards', null, { root: true })
+              this.$store.dispatch('Home/getCards', null, { root: true })
+              this.$router.push({ name: 'Home' })
+            })
         })
       },
       close() {
@@ -162,10 +158,9 @@
 </script>
 
 <style lang="scss">
-  @import "../../stylesheet/config/variables";
+  @import '../../stylesheet/config/variables';
 
   .Profile {
-
     .Popup-container {
       display: flex;
       padding: 0;
@@ -205,6 +200,5 @@
         padding-left: 40px;
       }
     }
-
   }
 </style>

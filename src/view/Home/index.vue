@@ -28,11 +28,7 @@
       Card
     },
     computed: {
-      ...mapGetters('Home', [
-        'isEndCard',
-        'hasCards',
-        'Cards'
-      ]),
+      ...mapGetters('Home', ['isEndCard', 'hasCards', 'Cards']),
       cardLoading() {
         return this.$loading.isLoading('loading cards')
       }
@@ -49,7 +45,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../stylesheet/config/variables";
+  @import '../../stylesheet/config/variables';
 
   .List {
     display: flex;

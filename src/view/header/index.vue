@@ -28,10 +28,7 @@
   export default {
     name: 'Card',
     computed: {
-      ...mapGetters('Auth', [
-        'isLogin',
-        'User'
-      ])
+      ...mapGetters('Auth', ['isLogin', 'User'])
     },
     methods: {
       logout() {
@@ -44,7 +41,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../stylesheet/config/variables";
+  @import '../../stylesheet/config/variables';
 
   .Header {
     .container {

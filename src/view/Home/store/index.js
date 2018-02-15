@@ -20,9 +20,7 @@ export default {
     getCards({ state, commit, dispatch }) {
       startLoading(dispatch, 'loading cards')
       //
-      let refUsers =
-        FIRESTORE
-        .collection('Users')
+      let refUsers = FIRESTORE.collection('Users')
         .where('hasCard', '==', true)
         .limit(state.perPage)
 
@@ -31,18 +29,20 @@ export default {
       }
 
       refUsers
-      .get()
-      .then(documentSnapshots => {
-        if (documentSnapshots.empty) {
-          commit('endCard')
-          return
-        }
-        commit('addCards', documentSnapshots)
-      }).catch(error => {
-        console.log(error)
-      }).then(() => {
-        endLoading(dispatch, 'loading cards')
-      })
+        .get()
+        .then(documentSnapshots => {
+          if (documentSnapshots.empty) {
+            commit('endCard')
+            return
+          }
+          commit('addCards', documentSnapshots)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .then(() => {
+          endLoading(dispatch, 'loading cards')
+        })
     }
   },
   mutations: {

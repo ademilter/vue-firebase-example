@@ -25,7 +25,7 @@
 </script>
 
 <style lang="scss">
-  @import "stylesheet/app";
+  @import 'stylesheet/app';
 
   body {
     background-color: #e5e5e5;
