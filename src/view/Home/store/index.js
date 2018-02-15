@@ -17,7 +17,7 @@ export default {
     Cards: state => state.Cards
   },
   actions: {
-    getCards ({ state, commit, dispatch }) {
+    getCards({ state, commit, dispatch }) {
       startLoading(dispatch, 'loading cards')
       //
       let refUsers =
@@ -46,16 +46,16 @@ export default {
     }
   },
   mutations: {
-    resetCards (state) {
+    resetCards(state) {
       state.isFirstPage = true
       state.isEnd = false
       state.lastVisible = null
       state.Cards = []
     },
-    endCard (state) {
+    endCard(state) {
       state.isEnd = true
     },
-    addCards (state, documentSnapshots) {
+    addCards(state, documentSnapshots) {
       if (state.isFirstPage) state.isFirstPage = false
       state.lastVisible = _.cloneDeep(documentSnapshots.docs[documentSnapshots.docs.length - 1])
       documentSnapshots.forEach(doc => {

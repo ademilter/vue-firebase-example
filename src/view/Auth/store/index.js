@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export default {
   namespaced: true,
   state: {
@@ -13,13 +15,17 @@ export default {
   },
   actions: {},
   mutations: {
-    saveRawData (state, payload) {
-      state.User.rawData = JSON.parse(JSON.stringify(payload))
+    saveRawData(state, payload) {
+      console.log(payload)
+      payload = JSON.parse(JSON.stringify(payload))
+      const validKeys = ['createdAt', 'displayName', 'email', 'emailVerified', 'isAnonymous', 'metadata', 'photoURL']
+      payload = _.pick(payload, validKeys)
+      state.User.rawData = payload
     },
-    saveCardData (state, payload) {
+    saveCardData(state, payload) {
       state.User.cardData = JSON.parse(JSON.stringify(payload))
     },
-    logout (state) {
+    logout(state) {
       state.User.rawData = null
       state.User.cardData = null
     }

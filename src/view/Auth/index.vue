@@ -26,7 +26,7 @@
 
   export default {
     name: 'Auth',
-    data () {
+    data() {
       return {
         alert: ''
       }
@@ -35,15 +35,15 @@
       ...mapGetters('Auth', [
         'User'
       ]),
-      isAlert () {
+      isAlert() {
         return this.alert !== ''
       },
-      loginLoading () {
+      loginLoading() {
         return this.$loading.isLoading('user login')
       }
     },
     methods: {
-      login (provider) {
+      login(provider) {
         this.$loading.startLoading('user login')
         AUTH.signInWithPopup(this.newProvider(provider)).then(result => {
           // giriş yaptı
@@ -86,7 +86,7 @@
           this.$loading.endLoading('user login')
         })
       },
-      newProvider (provider) {
+      newProvider(provider) {
         let newProvider
         switch (provider) {
           case 'github':
@@ -100,7 +100,7 @@
         }
         return newProvider
       },
-      close () {
+      close() {
         this.$router.push({ name: 'Home' })
       }
     }

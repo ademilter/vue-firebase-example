@@ -39,10 +39,10 @@
       }
     },
     computed: {
-      cleanPhoto () {
+      cleanPhoto() {
         return this.data.photo.replace(/_normal/i, '_400x400')
       },
-      statusText () {
+      statusText() {
         return this.data.status ? 'İş için uygun' : 'İş için uygun değil'
       }
     },

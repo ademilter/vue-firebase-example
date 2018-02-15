@@ -82,7 +82,7 @@
     components: {
       Card
     },
-    data () {
+    data() {
       return {
         form: {
           photo: 'https://pbs.twimg.com/profile_images/959150465845022721/Y3crTOFR_400x400.jpg',
@@ -104,11 +104,11 @@
         'User',
         'hasCard'
       ]),
-      profileLoading () {
+      profileLoading() {
         return this.$loading.isLoading('profile loading')
       }
     },
-    mounted () {
+    mounted() {
       this.$loading.startLoading('profile loading')
       FIRESTORE
       .collection('Users')
@@ -133,7 +133,7 @@
       })
     },
     methods: {
-      save (e) {
+      save(e) {
         e.preventDefault()
         this.$validator.validateAll().then(result => {
           // form error
@@ -154,7 +154,7 @@
           })
         })
       },
-      close () {
+      close() {
         this.$router.push({ name: 'Home' })
       }
     }

@@ -33,15 +33,15 @@
         'hasCards',
         'Cards'
       ]),
-      cardLoading () {
+      cardLoading() {
         return this.$loading.isLoading('loading cards')
       }
     },
-    mounted () {
+    mounted() {
       this.$store.dispatch('Home/getCards')
     },
     methods: {
-      next () {
+      next() {
         this.$store.dispatch('Home/getCards')
       }
     }

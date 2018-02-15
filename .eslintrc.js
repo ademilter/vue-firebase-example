@@ -12,12 +12,10 @@ module.exports = {
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
   // required to lint *.vue files
-  plugins: [
-    'html',
-    'pug'
-  ],
+  plugins: ['html', 'pug'],
   // add your custom rules here
-  'rules': {
+  rules: {
+    'space-before-function-paren': ['error', 'never'],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

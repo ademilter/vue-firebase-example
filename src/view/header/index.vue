@@ -34,7 +34,7 @@
       ])
     },
     methods: {
-      logout () {
+      logout() {
         AUTH.signOut().then(() => {
           this.$store.commit('Auth/logout', null, { root: true })
         })

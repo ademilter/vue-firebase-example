@@ -22,7 +22,7 @@
       }
     },
     computed: {
-      link () {
+      link() {
         let domain
         switch (this.siteName) {
           case 'twitter':

@@ -17,7 +17,7 @@
       Icon,
       HeaderView: Header
     },
-    created () {
+    created() {
       const user = AUTH.currentUser
       if (user) this.$store.commit('Auth/saveRawData', user, { root: true })
     }
