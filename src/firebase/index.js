@@ -1,4 +1,4 @@
-import firebaseConfig from './config.local'
+import firebaseConfig from './config'
 //
 import firebase from 'firebase/app'
 import 'firebase/auth'

@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   state: {
     isFirstPage: true,
-    perPage: 30,
+    perPage: 12,
     isEnd: false,
     lastVisible: null,
     Cards: []

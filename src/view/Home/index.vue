@@ -10,10 +10,10 @@
       .page
         button.button.button-inline(
         @click="next",
-        :disabled="cardLoading",
-        v-show="!isEndCard")
+        :disabled="cardLoading || isEndCard")
           span(v-show="cardLoading") Yükleniyor...
-          span(v-show="!cardLoading") Sonraki
+          span(v-show="!cardLoading && !isEndCard") Sonraki
+          span(v-show="isEndCard") Başka kayıt yok
 
     router-view
 </template>
