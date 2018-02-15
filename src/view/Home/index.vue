@@ -7,12 +7,13 @@
         :key="Card.rawData.uid",
         :data="Card.cardData")
 
-      button(
-      @click="next",
-      :disabled="cardLoading",
-      v-show="!isEndCard")
-        span(v-show="cardLoading") Yükleniyor...
-        span(v-show="!cardLoading") Sonraki sayfa
+      .page
+        button.button.button-inline(
+        @click="next",
+        :disabled="cardLoading",
+        v-show="!isEndCard")
+          span(v-show="cardLoading") Yükleniyor...
+          span(v-show="!cardLoading") Sonraki
 
     router-view
 </template>
@@ -36,11 +37,6 @@
         return this.$loading.isLoading('loading cards')
       }
     },
-    // beforeRouteEnter (to, from, next) {
-    //   next(vm => {
-    //     vm.$store.dispatch('Home/getCards')
-    //   })
-    // },
     mounted () {
       this.$store.dispatch('Home/getCards')
     },
@@ -53,6 +49,8 @@
 </script>
 
 <style lang="scss">
+  @import "../../stylesheet/config/variables";
+
   .List {
     display: flex;
     justify-content: center;
@@ -61,5 +59,11 @@
     .Card {
       margin: 10px;
     }
+  }
+
+  .page {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
   }
 </style>

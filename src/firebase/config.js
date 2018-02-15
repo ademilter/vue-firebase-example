@@ -1,6 +1,6 @@
 export default {
-  apiKey: 'AIzaSyAnbjVK_WzSfjPujLST_iPNmGce0jsbKSs',
-  authDomain: 'profil-cards.firebaseapp.com',
-  databaseURL: 'https://profil-cards.firebaseio.com',
-  projectId: 'profil-cards'
+  apiKey: 'AIzaSyBbLqy_mg2dGCooHiVtPNLOrz4hmPxRJxk',
+  authDomain: 'profile-cards.firebaseapp.com',
+  databaseURL: 'https://profile-cards.firebaseio.com',
+  projectId: 'profile-cards'
 }

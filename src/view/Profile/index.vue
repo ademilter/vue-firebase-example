@@ -56,7 +56,7 @@
             v-model="form.social.dribbble")
 
           .Form-item.social-item.space
-            button.button(
+            button.button.button-primary(
             type="submit",
             :disabled="profileLoading") Kartımı Ekle
 
@@ -139,6 +139,8 @@
             cardData: this.form,
             hasCard: true
           }).then(() => {
+            this.$store.commit('Home/resetCards', null, { root: true })
+            this.$store.dispatch('Home/getCards', null, { root: true })
             this.$router.push({ name: 'Home' })
           })
         })
