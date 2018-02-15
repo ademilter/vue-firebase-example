@@ -18,10 +18,17 @@
   padding-right: 20px;
 }
 
+.textFit {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .alert {
   padding: 10px;
-  color: red;
-  background-color: rgba(red, .1);
+  color: $color-warning;
+  background-color: rgba($color-warning, .1);
+  border-radius: $border-radius;
 }
 
 .Popup {
@@ -46,7 +53,7 @@
     left: 50%;
     top: 50%;
     width: 90%;
-    max-width: 640px;
+    max-width: 800px;
     padding: 20px;
     transform: translate(-50%, -50%);
     background-color: white;

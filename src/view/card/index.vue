@@ -4,14 +4,14 @@
     .Card-head
       .Card-head-photo
         img.Card-head-photo-img(
-        :src="data.photo",
+        :src="cleanPhoto",
         :alt="data.fullname")
       .Card-head-user
-        h4.Card-head-user-name {{ data.fullname }}
-        p.Card-head-user-title {{ data.title }}
+        h4.Card-head-user-name.textFit {{ data.fullname }}
+        p.Card-head-user-title.textFit {{ data.title }}
 
     .Card-foot
-      p.Card-foot-location {{ data.location }}
+      p.Card-foot-location.textFit {{ data.location }}
       p.Card-foot-status(
       :class="{ 'active' : data.status }"
       ) {{ statusText }}
@@ -39,6 +39,9 @@
       }
     },
     computed: {
+      cleanPhoto () {
+        return this.data.photo.replace(/_normal/i, '_400x400')
+      },
       statusText () {
         return this.data.status ? 'İş için uygun' : 'İş için uygun değil'
       }

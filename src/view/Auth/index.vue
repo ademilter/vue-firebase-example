@@ -3,20 +3,18 @@
     .Popup-overlay(@click="close")
     .Popup-container
       .Popup-loading(v-show="loginLoading") Yükleniyor...
-      button(
+      button.button(
       type="button",
       :disabled="loginLoading",
-      @click="login('github')") login github
-      br
-      button(
+      @click="login('github')") Github ile giriş
+      button.button(
       type="button",
       :disabled="loginLoading",
-      @click="login('google')") login google
-      br
-      button(
+      @click="login('google')") Google ile giriş
+      button.button(
       type="button",
       :disabled="loginLoading",
-      @click="login('twitter')") login twitter
+      @click="login('twitter')") Twitter ile giriş
       p.alert(v-show="isAlert") {{ alert }}
 </template>
 
@@ -49,6 +47,7 @@
         this.$loading.startLoading('user login')
         AUTH.signInWithPopup(this.newProvider(provider)).then(result => {
           // giriş yaptı
+          console.log(result.user)
           this.$store.commit('Auth/saveRawData', result.user)
           //
           const refUSERS = FIRESTORE.collection('Users')
@@ -58,6 +57,11 @@
           .get().then(doc => {
             //
             if (!doc.exists) {
+              console.log(result.user.uid)
+              console.log({
+                rawData: this.User.rawData,
+                hasCard: false
+              })
               refUSERS
               .doc(result.user.uid)
               .set({
@@ -105,5 +109,18 @@
 
 <style lang="scss">
   .Auth {
+
+    .Popup-container {
+      max-width: 300px;
+
+      .button + .button {
+        margin-top: 10px;
+      }
+
+      .alert {
+        margin-top: 20px;
+      }
+    }
+
   }
 </style>

@@ -59,8 +59,7 @@ export default {
       if (state.isFirstPage) state.isFirstPage = false
       state.lastVisible = _.cloneDeep(documentSnapshots.docs[documentSnapshots.docs.length - 1])
       documentSnapshots.forEach(doc => {
-        console.log(JSON.parse(JSON.stringify(doc.data())))
-        state.Cards.push(JSON.parse(JSON.stringify(doc.data())))
+        state.Cards.push(_.cloneDeep(doc.data()))
       })
     }
   }

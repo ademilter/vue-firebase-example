@@ -7,17 +7,17 @@
           tag="button",
           type="button",
           :to="{ name: 'Profile' }"
-          ) Profil
+          ) Kartımı Düzenle
           button(
           type="button",
           @click="logout"
-          ) Çıkış
+          ) Çıkış yap
         template(v-else)
           router-link(
           tag="button",
           type="button",
           :to="{ name: 'Auth' }"
-          ) Kartını Bırak
+          ) Kartını bırak / (giriş)
 
 </template>
 
