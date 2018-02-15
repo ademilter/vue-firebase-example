@@ -8,15 +8,7 @@
 - tekrar proje dizininde `npm install` diyerek projeye ait paketleri yükleyin.
 - son olarak `npm run deploy` diyerek proje build olur ve firebase'e gönderilir.
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# firebase hosting
-npm run deploy
-```
+## Yapılacaklar
+- [ ] Şehire göre filtreleme
+- [ ] Uygunluk durumuna göre filtreleme
+- [ ] Mesleğe göre filtreleme
