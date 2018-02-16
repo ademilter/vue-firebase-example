@@ -118,6 +118,7 @@
             this.form.title = this.User.cardData.title
             this.form.location = this.User.cardData.location
             this.form.status = this.User.cardData.status
+            this.form.social.rss = this.User.cardData.social.rss
             this.form.social.twitter = this.User.cardData.social.twitter
             this.form.social.github = this.User.cardData.social.github
             this.form.social.dribbble = this.User.cardData.social.dribbble
